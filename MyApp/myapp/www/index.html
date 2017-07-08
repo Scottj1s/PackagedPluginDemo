@@ -1,0 +1,29 @@
+﻿<html>
+<head>
+    <title>My Packaged Plugin Page</title>
+    <script src="/js/rest.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript">
+        function InitPage() {
+            var webb = new WebbRest();
+            webb.httpGetExpect200("/myapp/api/status")
+                .done(function (response) {
+                    $('#app_status')[0].innerText = response.status;
+                });
+            webb.httpGetExpect200("/mycomponent/api/status")
+                .done(function (response) {
+                    $('#comp_status')[0].innerText = response.status;
+                });
+        }
+    </script>
+</head>
+<body onload="InitPage();">
+    <div style="font-size: x-large;">
+        My Packaged Plugin Page
+        <br/><br/>
+        App Status:&nbsp;<span id="app_status" style="color:green"></span>
+        <br/>
+        Component Status:&nbsp;<span id="comp_status" style="color:green"></span>
+    </div>
+</body>
+</html>

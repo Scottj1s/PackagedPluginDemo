@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+         xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+         xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+         xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4"
+         xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+         IgnorableNamespaces="uap uap4 mp rescap">
+
+  <Identity Name="MyPackagedPlugin" Publisher="CN=msdn" Version="1.0.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="da3276b1-6661-4dc4-bc42-f63d7427977d" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+  <Properties>
+    <DisplayName>MyApp</DisplayName>
+    <PublisherDisplayName>msdn</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="MyApp.App">
+      <uap:VisualElements
+        DisplayName="MyApp"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        Description="MyApp"
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+      </uap:VisualElements>
+    <Extensions>
+        
+        <!--Foreground (in app) packaged plugin handler app service and WDP provider-->
+        <uap:Extension 
+            Category="windows.appService">
+            <uap:AppService Name="com.contoso.www.myapp" />
+        </uap:Extension>
+        <uap4:Extension 
+            Category="windows.devicePortalProvider">
+            <uap4:DevicePortalProvider 
+                DisplayName="MyPluginApp" 
+                AppServiceName="com.contoso.www.myapp"
+                ContentRoute="/myapp/www/" 
+                HandlerRoute="/myapp/api/" />
+        </uap4:Extension>
+            
+        <!--Background packaged plugin handler app service and WDP provider-->
+        <uap:Extension 
+            Category="windows.appService" 
+            EntryPoint="MyComponent.MyBackgroundHandler">
+            <uap:AppService Name="com.contoso.www.mycomponent" />
+        </uap:Extension>
+        <uap4:Extension 
+            Category="windows.devicePortalProvider">
+            <uap4:DevicePortalProvider 
+                DisplayName="MyPluginComponent" 
+                AppServiceName="com.contoso.www.mycomponent"
+                HandlerRoute="/mycomponent/api/" />
+        </uap4:Extension>
+   
+    </Extensions>
+    </Application>
+  </Applications>
+
+<Capabilities>
+    <Capability Name="privateNetworkClientServer" />
+    <rescap:Capability Name="devicePortalProvider" />
+</Capabilities>
+</Package>
