@@ -74,6 +74,7 @@
 
 <Capabilities>
     <Capability Name="privateNetworkClientServer" />
+    <Capability Name="internetClientServer" />
     <rescap:Capability Name="devicePortalProvider" />
 </Capabilities>
 </Package>
